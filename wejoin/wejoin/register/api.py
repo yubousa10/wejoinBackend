@@ -14,11 +14,8 @@ from rest_framework.response import Response
 class doAuth(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    
     def get(self, request, format=None):
         return Response({'detail':'I suppose you are authenticated'})
-    
-    
 
 class TokenForUser(APIView):
     
