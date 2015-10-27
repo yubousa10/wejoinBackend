@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 class TokenForUser(APIView):
+    
     def get(self, request):
         name = request.GET.get('username','default')
         user = User.objects.get(username = name)
