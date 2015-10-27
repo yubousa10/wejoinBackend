@@ -21,6 +21,7 @@ from register import api
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),# admin logn in
+    url(r'^api/authToken/$', api.doAuth.as_view()),# atuh for you
     url(r'^api/getToken/$', api.TokenForUser.as_view()),# get token for specific email
     url(r'^api/userlist/$', api.UserList.as_view()), # get all user info or post an user
     url(r'^api/getUserByemail/$', api.getUserbyEmail.as_view()),# get user by email
