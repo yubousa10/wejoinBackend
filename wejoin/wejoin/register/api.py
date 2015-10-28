@@ -10,20 +10,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-class doAuth(APIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    def get(self, request, format=None):
-        return Response({'detail':'I suppose you are authenticated'})
-
-class TokenForUser(APIView):
-    
-    def get(self, request):
-        name = request.GET.get('username','default')
-        user = User.objects.get(username = name)
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key})
             
 class UserList(APIView):
     def get(self, request, format=None):
