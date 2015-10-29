@@ -10,20 +10,19 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-            
+from rest_framework import status
+
 class UserList(APIView):
     def get(self, request, format=None):
-        print(request.method)
-        if request.method == 'GET':
-            customers = UserBase.objects.all()
-            alluserbase = UserBaseSerializer(customers,many=True)
-            return Response(alluserbase.data)
-        elif request.method == 'POST':
-            serializer = UserBaseSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        customers = UserBase.objects.all()
+        alluserbase = UserBaseSerializer(customers,many=True)
+        return Response(alluserbase.data)
+    def post(self, request, format=None):
+        serializer = UserBaseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 class getUserbyEmail(APIView): 
      def get(self, request, format=None):
@@ -51,16 +50,15 @@ class getRegisterInfoByemail(APIView):
         
 class RegisterList(APIView):
     def get(self, request, format=None):
-        if request.method == 'GET':
-            registerinfoList = Register.objects.all()
-            serialized_registerinfoList = RegisterSerializer(registerinfoList,many=True)
-            return Response(serialized_registerinfoList.data)
-        elif request.method == 'POST':
-            serializer = RegisterSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        registerinfoList = Register.objects.all()
+        serialized_registerinfoList = RegisterSerializer(registerinfoList,many=True)
+        return Response(serialized_registerinfoList.data)
+    def post(self, request, format=None):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
                     
 
